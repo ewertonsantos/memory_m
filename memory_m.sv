@@ -4,7 +4,10 @@ module memory_m #(parameter DWIDTH = 8, AWIDTH = 5) (
   input logic read,
   input logic write
 );
+  // internal registar thats isnt input or output, its the reason its here
   reg [DWIDTH-1:0] reg_array [31:0];
+  // intermadiate variable for data when its treated as output 
+  //cause we cannot pass a register directly to a logical inside awalys block
   logic [7:0] temp_data;
   
   always_comb begin
@@ -12,13 +15,13 @@ module memory_m #(parameter DWIDTH = 8, AWIDTH = 5) (
       temp_data = reg_array[addr];
     else
       temp_data = 8'bzzzzzzzz;
-  end
-  
-  assign data = ( write & ~read) ? data : temp_data;
-  
+  end 
+    
   always_ff @(posedge write) begin
     if ( write & ~read)
       reg_array[addr] <= data;
   end	
+  
+  assign data = ( write & ~read) ? data : temp_data;
 
 endmodule
