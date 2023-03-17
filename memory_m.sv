@@ -8,7 +8,7 @@ module memory_m #(parameter DWIDTH = 8, AWIDTH = 5) (
   logic [7:0] temp_data;
   
   always_comb begin
-    if (read)
+    if (read & ~write)
       temp_data = reg_array[addr];
     else
       temp_data = 8'bzzzzzzzz;
