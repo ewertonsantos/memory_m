@@ -5,7 +5,7 @@ module memory_m #(parameter DWIDTH = 8, AWIDTH = 5) (
   input logic write
 );
   // internal registar thats isnt input or output, its the reason its here
-  reg [DWIDTH-1:0] reg_array [31:0];
+  reg [DWIDTH-1:0] reg_array [2**AWIDTH-1:0];
   // intermadiate variable for data when its treated as output 
   //cause we cannot pass a register directly to a logical inside awalys block
   logic [7:0] temp_data;
